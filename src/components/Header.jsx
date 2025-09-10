@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 const Header = () => {
     return (
         <header className="mama-header">
@@ -8,9 +10,10 @@ const Header = () => {
                 <h1>Cooking Mama's Recipe Generator</h1>
             </div>
             <nav className="mama-nav" aria-label="Cute kitchen navigation">
-                <button className="nav-pill" type="button" aria-label="Home">🏠 Home</button>
-                <button className="nav-pill" type="button" aria-label="Recipes">🍲 Saved recipes</button>
+                <NavLink className="nav-pill" to="/" aria-label="Home">🏠 Home</NavLink>
+                <NavLink className="nav-pill" to="/my-recipes" aria-label="Recipes">🍲 Saved recipes</NavLink>
             </nav>
+
         </header>
     );
 };

@@ -279,6 +279,16 @@ body::before {
   font-size: 0.9rem;
 }
 
+.save-recipe {
+  background: linear-gradient(180deg, #fff, var(--yellow));
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  font-size: 0.9rem;
+  float: right;
+}
+
 .section {
   margin-top: 1rem;
 }

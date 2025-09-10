@@ -2,12 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import api from './api/api';
 import './App.css';
 import Recipe from './components/Recipe';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Saved from './components/Saved';
 import Header from './components/Header';
 import PotButton from './components/PotButton';
 
@@ -16,6 +12,10 @@ function App() {
   const [recipe, setRecipe] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [savedRecipes, setSavedRecipes] = useState(() => {
+    const saved = localStorage.getItem("recipes");
+    return saved ? JSON.parse(saved) : [];
+  });
 
   const fetchRecipe = () => {
     setLoading(true);
@@ -53,22 +53,53 @@ function App() {
     return { estMinutes, difficulty, hats };
   }, [meal]);
 
+  const handleSubmit = () => {
+    if (meal && meal.strMeal && !savedRecipes.includes(meal.strMeal)) {
+      const newSavedRecipe = {
+        name: meal.strMeal,
+        image: meal.strMealThumb,
+        id: meal.idMeal,
+      };
+
+      const updatedRecipes = [...savedRecipes, newSavedRecipe];
+      setSavedRecipes(updatedRecipes);
+
+      localStorage.setItem("recipes", JSON.stringify(updatedRecipes));
+      console.log(newSavedRecipe);
+    }
+  };
+
   return (
     <div className="mama-app">
-      <Header />
-      <main className="mama-main">
-        <PotButton loading={loading} fetchRecipe={fetchRecipe} />
-
-        {error && <div className="error-bubble">{error}</div>}
-
-        {meal ? (
-          <div className="recipe-area">
-            <Recipe key={meal.idMeal} meal={meal} meta={meta} />
-          </div>
-        ) : (
-          !error && <div className="empty">No meal found.</div>
-        )}
-      </main>
+      <Router>
+        <Header />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <main className="mama-main">
+                <PotButton loading={loading} fetchRecipe={fetchRecipe} />
+                {error && <div className="error-bubble">{error}</div>}
+                {meal ? (
+                  <div className="recipe-area">
+                    <Recipe key={meal.idMeal} meal={meal} meta={meta} handleSubmit={handleSubmit} />
+                  </div>
+                ) : (
+                  !error && <div className="empty">No meal found.</div>
+                )}
+              </main>
+            }
+          />
+          <Route
+            path="/my-recipes"
+            element={
+              <main className="mama-main">
+                <Saved savedRecipes={savedRecipes} />
+              </main>
+            }
+          />
+        </Routes>
+      </Router>
     </div>
   );
 }
