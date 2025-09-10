@@ -1,4 +1,4 @@
-const Recipe = ({ meal, meta, handleSubmit }) => {
+const Recipe = ({ meal, meta, handleSubmit, savedRecipes }) => {
     const ingredients = Array.from({ length: 20 }, (_, i) => {
         const name = meal?.[`strIngredient${i + 1}`]?.trim();
         const amount = meal?.[`strMeasure${i + 1}`]?.trim();
@@ -8,6 +8,8 @@ const Recipe = ({ meal, meta, handleSubmit }) => {
 
     const hats = meta?.hats || 1;
     const hatsIcons = '👩‍🍳'.repeat(hats);
+
+    const isSaved = savedRecipes.some(recipe => recipe.id === meal.idMeal);
 
     return (
         <div className="recipe-card pop-in">
@@ -20,7 +22,9 @@ const Recipe = ({ meal, meta, handleSubmit }) => {
                 <div className="title-area">
                     <h2 className="bubble-title">
                         {meal.strMeal}
-                        <button className="save-recipe" onClick={handleSubmit}>Save Recipe!</button>
+                        <button className="save-recipe" onClick={handleSubmit}>
+                            {isSaved ? "Saved! ✓" : "Save Recipe!"}
+                        </button>
                     </h2>
                     <div className="meta-chips">
                         {meal.strCategory && <span className="chip">🍽️ {meal.strCategory}</span>}

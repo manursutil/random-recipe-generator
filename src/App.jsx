@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Saved from './components/Saved';
 import Header from './components/Header';
 import PotButton from './components/PotButton';
+import SingleRecipe from './components/SingleRecipe';
 
 
 function App() {
@@ -82,7 +83,7 @@ function App() {
                 {error && <div className="error-bubble">{error}</div>}
                 {meal ? (
                   <div className="recipe-area">
-                    <Recipe key={meal.idMeal} meal={meal} meta={meta} handleSubmit={handleSubmit} />
+                    <Recipe key={meal.idMeal} meal={meal} meta={meta} handleSubmit={handleSubmit} savedRecipes={savedRecipes} />
                   </div>
                 ) : (
                   !error && <div className="empty">No meal found.</div>
@@ -96,6 +97,12 @@ function App() {
               <main className="mama-main">
                 <Saved savedRecipes={savedRecipes} />
               </main>
+            }
+          />
+          <Route
+            path="/my-recipes/:id"
+            element={
+              <SingleRecipe />
             }
           />
         </Routes>

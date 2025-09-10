@@ -226,7 +226,9 @@ body::before {
   background: linear-gradient(90deg, var(--pink), var(--yellow));
   animation: slide 1.2s ease-in-out infinite;
 }
-
+.single-padding-top {
+  margin-top: 20px;
+}
 .recipe-area {
   display: grid;
 }
@@ -259,6 +261,31 @@ body::before {
   height: 100%;
   object-fit: cover;
 }
+
+/* Saved recipes layout */
+.saved-list {
+  display: grid;
+  gap: 0;
+  padding: 0.5rem 0.75rem;
+  background: linear-gradient(180deg, #fff, var(--card));
+  border-radius: 16px;
+  border: 3px solid #fff;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06), 0 8px 18px var(--shadow);
+}
+.saved-item {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 0.75rem;
+  align-items: center;
+  text-align: left;
+  padding: 0.9rem 0.4rem;
+  border-bottom: 2px dashed #f1e7f4;
+}
+.saved-item:last-child { border-bottom: 0; }
+.saved-item .thumb-wrap {
+  margin: 0;
+}
+.saved-item .thumb-link { display: block; }
 .bubble-title {
   margin: 0.2rem 0 0.4rem;
   font-size: 1.6rem;
