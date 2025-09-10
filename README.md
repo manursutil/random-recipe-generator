@@ -1,0 +1,48 @@
+# Random Recipe Generator
+
+A Cooking Mama–inspired random recipe generator built with Vite and React. This is a work in progress and will evolve as features are added.
+
+## Features
+
+- Randomized recipe ideas to spark cooking inspiration
+- Simple, lightweight UI built with React components
+- Fast local development with Vite HMR
+- Planned: save/share favorites and tweak ingredient pools
+
+## Tech Stack
+
+- React 18
+- Vite
+- ESLint (project linting)
+
+## Getting Started
+
+- Requirements: Node.js 18+
+- Install dependencies: `npm install`
+- Start dev server: `npm run dev`
+- Build for production: `npm run build`
+- Preview build: `npm run preview`
+
+## Status
+
+Work in progress. Expect frequent changes while features and documentation are being built.
+
+## Roadmap
+
+- [x] Create frontend with React + Vite
+- [x] Initial styling and layout
+- [x] API connection and data fetching
+- [ ] Saved recipes via LocalStorage (MVP persistence)
+- [ ] Manage/view saved recipes (list, sort, remove)
+- [ ] Share recipes (copy link/image)
+- [ ] Ingredient pool customization and tweaks
+- [ ] Accessibility pass (labels, focus, contrast)
+- [ ] Robust loading, error, and empty states
+- [ ] Basic unit tests for components/utils
+- [ ] Deploy previews (Vercel/Netlify)
+- [ ] PWA support + offline caching
+- [ ] Performance/Lighthouse audit and optimizations
+- [ ] Internationalization groundwork (i18n)
+- [ ] User accounts with database-backed persistence
+- [ ] CI pipeline for lint/test
+- [ ] Screenshots and usage docs

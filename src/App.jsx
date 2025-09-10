@@ -1,0 +1,102 @@
+import { useEffect, useMemo, useState } from 'react';
+import api from './api/api';
+import './App.css';
+import Recipe from './components/Recipe';
+
+function App() {
+  const [recipe, setRecipe] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const fetchRecipe = () => {
+    setLoading(true);
+    setError(null);
+    api
+      .getRandomRecipe()
+      .then((data) => setRecipe(data))
+      .catch((err) => setError(err?.message || 'Failed to fetch recipe'))
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchRecipe();
+  }, []);
+
+  const meal = recipe?.meals?.[0] || null;
+
+  const meta = useMemo(() => {
+    if (!meal) return null;
+    const ingredients = Array.from({ length: 20 }, (_, i) => {
+      const name = meal?.[`strIngredient${i + 1}`]?.trim();
+      const amount = meal?.[`strMeasure${i + 1}`]?.trim();
+      if (!name) return null;
+      return { name, amount: amount || '' };
+    }).filter(Boolean);
+
+    const steps = (meal.strInstructions || '')
+      .split(/\n+|\.\s+/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    const estMinutes = Math.max(15, Math.min(90, ingredients.length * 3 + steps.length * 4));
+    const difficulty = ingredients.length <= 6 ? 'Easy' : ingredients.length <= 12 ? 'Medium' : 'Hard';
+    const hats = difficulty === 'Easy' ? 1 : difficulty === 'Medium' ? 2 : 3;
+    return { estMinutes, difficulty, hats };
+  }, [meal]);
+
+  return (
+    <div className="mama-app">
+      <header className="mama-header">
+        <div className="mama-title">
+          <span className="mama-logo" aria-hidden>👩
+            <span className="mama-logo-hat" aria-hidden>🍳</span>
+          </span>
+          <h1>Cooking Mama's Recipe Generator</h1>
+        </div>
+        <nav className="mama-nav" aria-label="Cute kitchen navigation">
+          <button className="nav-pill" type="button" aria-label="Home">🏠 Home</button>
+          <button className="nav-pill" type="button" aria-label="Recipes">🍲 Saved recipes</button>
+        </nav>
+      </header>
+
+      <main className="mama-main">
+        <div className="cta">
+          <button
+            type="button"
+            className={`mama-pot-button ${loading ? 'cooking' : ''}`}
+            onClick={fetchRecipe}
+            disabled={loading}
+            aria-live="polite"
+          >
+            <span className="pot-top" aria-hidden></span>
+            <span className="steam" aria-hidden></span>
+            <span className="label">{loading ? 'Cooking…' : 'Generate Recipe'}</span>
+            <span className="sfx" aria-hidden>🔊</span>
+          </button>
+          {loading && (
+            <div className="mama-timer" role="status" aria-label="Loading">
+              <div className="timer-face">
+                <div className="hand"></div>
+              </div>
+              <div className="timer-bar">
+                <div className="bar-fill"></div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {error && <div className="error-bubble">{error}</div>}
+
+        {meal ? (
+          <div className="recipe-area">
+            <Recipe key={meal.idMeal} meal={meal} meta={meta} />
+          </div>
+        ) : (
+          !error && <div className="empty">No meal found.</div>
+        )}
+      </main>
+    </div>
+  );
+}
+
+export default App;

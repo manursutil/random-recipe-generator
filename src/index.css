@@ -1,0 +1,26 @@
+:root {
+  font-family: "Arial Rounded MT Bold", "Trebuchet MS", "Comic Sans MS", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 500;
+  color: #5b4b5e;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+a { color: #ff6aa2; text-decoration: none; }
+a:hover { color: #ff3f8a; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  display: block;
+}
+
+button { font-family: inherit; }
