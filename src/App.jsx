@@ -2,6 +2,15 @@ import { useEffect, useMemo, useState } from 'react';
 import api from './api/api';
 import './App.css';
 import Recipe from './components/Recipe';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+} from "react-router-dom";
+import Header from './components/Header';
+import PotButton from './components/PotButton';
+
 
 function App() {
   const [recipe, setRecipe] = useState(null);
@@ -46,44 +55,9 @@ function App() {
 
   return (
     <div className="mama-app">
-      <header className="mama-header">
-        <div className="mama-title">
-          <span className="mama-logo" aria-hidden>👩
-            <span className="mama-logo-hat" aria-hidden>🍳</span>
-          </span>
-          <h1>Cooking Mama's Recipe Generator</h1>
-        </div>
-        <nav className="mama-nav" aria-label="Cute kitchen navigation">
-          <button className="nav-pill" type="button" aria-label="Home">🏠 Home</button>
-          <button className="nav-pill" type="button" aria-label="Recipes">🍲 Saved recipes</button>
-        </nav>
-      </header>
-
+      <Header />
       <main className="mama-main">
-        <div className="cta">
-          <button
-            type="button"
-            className={`mama-pot-button ${loading ? 'cooking' : ''}`}
-            onClick={fetchRecipe}
-            disabled={loading}
-            aria-live="polite"
-          >
-            <span className="pot-top" aria-hidden></span>
-            <span className="steam" aria-hidden></span>
-            <span className="label">{loading ? 'Cooking…' : 'Generate Recipe'}</span>
-            <span className="sfx" aria-hidden>🔊</span>
-          </button>
-          {loading && (
-            <div className="mama-timer" role="status" aria-label="Loading">
-              <div className="timer-face">
-                <div className="hand"></div>
-              </div>
-              <div className="timer-bar">
-                <div className="bar-fill"></div>
-              </div>
-            </div>
-          )}
-        </div>
+        <PotButton loading={loading} fetchRecipe={fetchRecipe} />
 
         {error && <div className="error-bubble">{error}</div>}
 
