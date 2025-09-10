@@ -32,7 +32,7 @@ Work in progress. Expect frequent changes while features and documentation are b
 - [x] Create frontend with React + Vite
 - [x] Initial styling and layout
 - [x] API connection and data fetching
-- [ ] Saved recipes via LocalStorage (MVP persistence)
+- [x] Saved recipes via LocalStorage (MVP persistence)
 - [ ] Manage/view saved recipes (list, sort, remove)
 - [ ] Share recipes (copy link/image)
 - [ ] Ingredient pool customization and tweaks
