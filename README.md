@@ -34,7 +34,7 @@ Work in progress. Expect frequent changes while features and documentation are b
 - [x] API connection and data fetching
 - [x] Saved recipes via LocalStorage (MVP persistence)
 - [ ] Manage/view saved recipes (list, sort, remove)
-- [ ] Share recipes (copy link/image)
+- [x] Share recipes (copy link)
 - [ ] Ingredient pool customization and tweaks
 - [ ] Accessibility pass (labels, focus, contrast)
 - [ ] Robust loading, error, and empty states

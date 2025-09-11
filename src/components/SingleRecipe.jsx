@@ -8,6 +8,7 @@ const SingleRecipe = () => {
     const [recipe, setRecipe] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [copied, setCopied] = useState(false);
 
     const getSingleRecipe = (id) => {
         api
@@ -43,6 +44,16 @@ const SingleRecipe = () => {
         return { name, amount: amount || '' };
     }).filter(Boolean);
 
+    const handleClick = () => {
+        let url = document.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+            console.log('Copied!');
+        }, () => {
+            console.log('Copy error');
+        });
+        setCopied(true);
+    };
+
     return (
         <div className="single-padding-top">
             <div className="recipe-card pop-in">
@@ -55,6 +66,9 @@ const SingleRecipe = () => {
                     <div className="title-area">
                         <h2 className="bubble-title">
                             {meal?.strMeal || 'Unknown Recipe'}
+                            <button className="save-recipe" onClick={handleClick}>
+                                {!copied ? "Copy to Clipboard!" : "Copied! ✓"}
+                            </button>
                         </h2>
                         <div className="meta-chips">
                             {meal?.strCategory && <span className="chip">🍽️ {meal.strCategory}</span>}
