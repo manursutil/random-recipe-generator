@@ -354,6 +354,12 @@ body::before {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
   font-size: 0.9rem;
   cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.copy-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
 }
 .saved-item:last-child {
   border-bottom: 0;
@@ -392,6 +398,12 @@ body::before {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
   font-size: 0.9rem;
   float: right;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.save-recipe:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
 }
 
 .delete-recipe {
@@ -402,6 +414,12 @@ body::before {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
   font-size: 0.9rem;
   float: right;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.delete-recipe:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
 }
 
 .section {
