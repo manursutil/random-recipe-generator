@@ -4,10 +4,8 @@ const Header = () => {
     return (
         <header className="mama-header">
             <div className="mama-title">
-                <span className="mama-logo" aria-hidden>👩
-                    <span className="mama-logo-hat" aria-hidden>🍳</span>
-                </span>
                 <h1>Cooking Mama's Recipe Generator</h1>
+                <img src="/cooking_mama.png" alt="Cooking Mama" className="mama-logo" />
             </div>
             <nav className="mama-nav" aria-label="Cute kitchen navigation">
                 <NavLink className="nav-pill" to="/" aria-label="Home">🏠 Home</NavLink>

@@ -64,10 +64,14 @@ function App() {
 
       const updatedRecipes = [...savedRecipes, newSavedRecipe];
       setSavedRecipes(updatedRecipes);
-
       localStorage.setItem("recipes", JSON.stringify(updatedRecipes));
-      console.log(newSavedRecipe);
     }
+  };
+
+  const removeRecipe = (Id) => {
+    const updatedRecipes = savedRecipes.filter(recipe => recipe.id !== Id);
+    setSavedRecipes(updatedRecipes);
+    localStorage.setItem("recipes", JSON.stringify(updatedRecipes));
   };
 
   return (
@@ -95,7 +99,7 @@ function App() {
             path="/my-recipes"
             element={
               <main className="mama-main">
-                <Saved savedRecipes={savedRecipes} />
+                <Saved savedRecipes={savedRecipes} removeRecipe={removeRecipe} />
               </main>
             }
           />

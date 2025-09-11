@@ -1,6 +1,7 @@
 :root {
   --pink: #ff8fb3;
   --pink-2: #ffc1d9;
+  --red: #f61a60;
   --yellow: #ffd166;
   --blue: #9ad6ff;
   --green: #a4e8a2;
@@ -53,6 +54,7 @@ body::before {
 .mama-title {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 0.75rem;
 }
 .mama-title h1 {
@@ -61,11 +63,16 @@ body::before {
   color: var(--text);
   text-shadow: 0 2px 0 #fff, 0 4px 12px rgba(255, 105, 180, 0.25);
   letter-spacing: 0.5px;
+  flex: 1;
+  min-width: 0;
 }
 .mama-logo {
   position: relative;
-  font-size: 2rem;
-  filter: drop-shadow(0 6px 10px var(--shadow));
+  width: clamp(120px, 22vw, 220px);
+  height: auto;
+  max-width: 70px;
+  filter: drop-shadow(0 10px 16px var(--shadow));
+  animation: float 4.2s ease-in-out infinite;
 }
 .mama-logo-hat {
   position: absolute;
@@ -272,6 +279,46 @@ body::before {
   border: 3px solid #fff;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06), 0 8px 18px var(--shadow);
 }
+.search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.6rem;
+  margin: 0.25rem 0 0.5rem;
+  background: linear-gradient(180deg, #fff, var(--yellow));
+  border: 2px solid #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+}
+.search-icon {
+  font-size: 1rem;
+  opacity: 0.7;
+  filter: drop-shadow(0 1px 0 #fff);
+}
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: 0;
+  outline: none;
+  font-size: 1rem;
+  color: #3a3451;
+}
+.search-input::placeholder {
+  color: #7b6c86;
+  opacity: 0.9;
+}
+.search-clear {
+  background: linear-gradient(180deg, #fff, var(--pink-2));
+  border: 2px solid #fff;
+  border-radius: 999px;
+  padding: 0.15rem 0.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  color: #7a4b65;
+}
+.search-clear:hover {
+  transform: translateY(-1px);
+}
 .saved-item {
   display: grid;
   grid-template-columns: 120px 1fr;
@@ -281,11 +328,42 @@ body::before {
   padding: 0.9rem 0.4rem;
   border-bottom: 2px dashed #f1e7f4;
 }
-.saved-item:last-child { border-bottom: 0; }
+.saved-item .saved-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.saved-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.saved-item .saved-name {
+  color: inherit;
+  text-decoration: none;
+}
+.saved-item .delete-recipe {
+  float: none;
+}
+.copy-btn {
+  background: linear-gradient(180deg, #fff, var(--blue));
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.saved-item:last-child {
+  border-bottom: 0;
+}
 .saved-item .thumb-wrap {
   margin: 0;
 }
-.saved-item .thumb-link { display: block; }
+.saved-item .thumb-link {
+  display: block;
+}
 .bubble-title {
   margin: 0.2rem 0 0.4rem;
   font-size: 1.6rem;
@@ -308,6 +386,16 @@ body::before {
 
 .save-recipe {
   background: linear-gradient(180deg, #fff, var(--yellow));
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  font-size: 0.9rem;
+  float: right;
+}
+
+.delete-recipe {
+  background: linear-gradient(180deg, #fff, var(--red));
   padding: 0.35rem 0.6rem;
   border-radius: 999px;
   border: 2px solid #fff;
