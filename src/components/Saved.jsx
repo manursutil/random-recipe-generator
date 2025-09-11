@@ -28,7 +28,7 @@ const Saved = ({ removeRecipe, savedRecipes = [] }) => {
 
     const itemsToShow = filter
         ? savedRecipes.filter(recipe =>
-            recipe.name.toLowerCase().startsWith(filter.toLowerCase())
+            recipe.name.toLowerCase().includes(filter.toLowerCase())
         ) : savedRecipes;
 
     return (
