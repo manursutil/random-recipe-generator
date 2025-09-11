@@ -46,11 +46,7 @@ const SingleRecipe = () => {
 
     const handleClick = () => {
         let url = document.location.href;
-        navigator.clipboard.writeText(url).then(() => {
-            console.log('Copied!');
-        }, () => {
-            console.log('Copy error');
-        });
+        navigator.clipboard.writeText(url);
         setCopied(true);
     };
 

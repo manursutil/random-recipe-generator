@@ -11,7 +11,6 @@ const PotButton = ({ loading, fetchRecipe }) => {
                 <span className="pot-top" aria-hidden></span>
                 <span className="steam" aria-hidden></span>
                 <span className="label">{loading ? 'Cooking…' : 'Generate Recipe'}</span>
-                <span className="sfx" aria-hidden>🔊</span>
             </button>
             {loading && (
                 <div className="mama-timer" role="status" aria-label="Loading">
