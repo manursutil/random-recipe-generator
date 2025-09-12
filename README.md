@@ -36,6 +36,6 @@ Work in progress. Expect frequent changes while features and documentation are b
 - [x] Manage/view saved recipes (search, remove)
 - [x] Share recipes (copy link)
 - [x] Robust loading, error, and empty states
-- [ ] PWA support + offline caching
+- [x] PWA support + offline caching
 - [ ] User accounts with database-backed persistence
 - [ ] Screenshots and usage docs
