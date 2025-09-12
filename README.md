@@ -1,41 +1,68 @@
-# Random Recipe Generator
+# Cooking Mama Recipe Generator
 
-A Cooking Mama–inspired random recipe generator built with Vite and React. This is a work in progress and will evolve as features are added.
+Fun, fast recipe explorer inspired by Cooking Mama. Built with React + Vite and powered by TheMealDB public API. Generate a random meal, browse by category or area, save favorites locally, and share links. Ships as a lightweight PWA with offline caching.
+
+## Demo
+
+![Home – Random recipe](images/demo1.png)
+![Saved recipes list](images/demo2.png)
+![Single recipe view](images/demo3.png)
+
+Images live in `images/` so they render correctly on GitHub and in docs.
 
 ## Features
 
-- Randomized recipe ideas to spark cooking inspiration
-- Simple, lightweight UI built with React components
-- Fast local development with Vite HMR
-- Planned: save/share favorites and tweak ingredient pools
+- Random recipe generator: one tap for a new idea
+- Browse and search by category or area
+- Save favorites to LocalStorage; quick remove and search
+- Shareable links for saved/single recipes
+- PWA: installable, offline fallback, and cached assets
+- Robust loading, empty, and error states
 
 ## Tech Stack
 
-- React 18
-- Vite
-- ESLint (project linting)
+- React 18, React Router
+- Vite (dev server and build)
+- TheMealDB API (no key required)
+- ESLint for linting
 
-## Getting Started
+## Quick Start
 
 - Requirements: Node.js 18+
-- Install dependencies: `npm install`
-- Start dev server: `npm run dev`
-- Build for production: `npm run build`
+- Install deps: `npm install` (or `pnpm i` / `yarn`)
+- Dev server: `npm run dev` then open the printed URL
+- Production build: `npm run build` (outputs to `dist/`)
 - Preview build: `npm run preview`
 
-## Status
+## How It Works
 
-Work in progress. Expect frequent changes while features and documentation are being built.
+- Data: `src/api/api.js` calls TheMealDB for random meals, lookup by id, categories, and areas.
+- Routing: See `src/App.jsx` for routes: `/` (random), `/my-recipes`, `/my-recipes/:id`, `/search`, `/search/:id`.
+- State: Saved recipes persist to `localStorage` (no backend required).
+- PWA: `public/sw.js` handles cache-first for static assets; registered in `src/main.jsx`. Manifest at `public/manifest.json`.
+
+## Project Scripts
+
+- `npm run dev`: Start Vite dev server
+- `npm run build`: Create production build
+- `npm run preview`: Preview the production build
+
+## Folder Overview
+
+- `src/components/`: UI components (Recipe, Saved, SingleRecipe, Search, etc.)
+- `src/api/api.js`: API helpers for TheMealDB
+- `public/`: PWA assets and service worker
+- `images/`: Demo screenshots used in this README
+
+## Acknowledgements
+
+- Recipes and data from TheMealDB (www.themealdb.com)
 
 ## Roadmap
 
-- [x] Create frontend with React + Vite
-- [x] Initial styling and layout
-- [x] API connection and data fetching
-- [x] Saved recipes via LocalStorage (MVP persistence)
-- [x] Manage/view saved recipes (search, remove)
-- [x] Share recipes (copy link)
-- [x] Robust loading, error, and empty states
+- [x] Randomizer, search, and saved lists
+- [x] Shareable links and robust states
 - [x] PWA support + offline caching
-- [ ] User accounts with database-backed persistence
-- [ ] Screenshots and usage docs
+- [x] Screenshots and usage docs
+- [ ] User accounts with server persistence
+- [ ] Advanced filters and tags
