@@ -10,6 +10,7 @@ const Header = () => {
             <nav className="mama-nav" aria-label="Cute kitchen navigation">
                 <NavLink className="nav-pill" to="/" aria-label="Home">🏠 Home</NavLink>
                 <NavLink className="nav-pill" to="/my-recipes" aria-label="Recipes">🍲 Saved recipes</NavLink>
+                <NavLink className="nav-pill" to="/search" aria-label="Search">🔍 Search</NavLink>
             </nav>
 
         </header>

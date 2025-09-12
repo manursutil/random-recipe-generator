@@ -7,6 +7,7 @@ import Saved from './components/Saved';
 import Header from './components/Header';
 import PotButton from './components/PotButton';
 import SingleRecipe from './components/SingleRecipe';
+import Search from './components/Search';
 
 
 function App() {
@@ -105,6 +106,18 @@ function App() {
           />
           <Route
             path="/my-recipes/:id"
+            element={
+              <SingleRecipe />
+            }
+          />
+          <Route
+            path="/search"
+            element={
+              <Search />
+            }
+          />
+          <Route
+            path="/search/:id"
             element={
               <SingleRecipe />
             }
