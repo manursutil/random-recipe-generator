@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const Saved = ({ removeRecipe, savedRecipes = [] }) => {
-    const [copiedId, setCopiedId] = useState(null);
+    // const [copiedId, setCopiedId] = useState(null);
     const [filter, setFilter] = useState('');
 
     if (!savedRecipes.length) {
@@ -11,11 +11,12 @@ const Saved = ({ removeRecipe, savedRecipes = [] }) => {
 
     const handleCopy = (id) => {
         const url = `${window.location.origin}/my-recipes/${id}`;
-        navigator.clipboard.writeText(url)
-            .then(() => console.log('Copied!'))
-            .catch(() => console.log('Copy error'));
-        setCopiedId(id);
-        setTimeout(() => setCopiedId(null), 1500);
+        // navigator.clipboard.writeText(url)
+        //     .then(() => console.log('Copied!'))
+        //     .catch(() => console.log('Copy error'));
+        // setCopiedId(id);
+        // setTimeout(() => setCopiedId(null), 1500);
+        navigator.share({ url: url });
     };
 
     const handleRemove = (recipeId) => {
@@ -69,7 +70,7 @@ const Saved = ({ removeRecipe, savedRecipes = [] }) => {
                             <Link className="saved-name" to={`/my-recipes/${recipe.id}`}>{recipe.name}</Link>
                             <div className="saved-actions">
                                 <button className="copy-btn" onClick={() => handleCopy(recipe.id)}>
-                                    {copiedId === recipe.id ? "Copied! ✓" : "Copy link"}
+                                    Share!
                                 </button>
                                 <button className="delete-recipe" onClick={() => handleRemove(recipe.id)} aria-label={`Delete ${recipe.name}`} title="Delete recipe">🗑️</button>
                             </div>

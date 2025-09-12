@@ -8,7 +8,7 @@ const SingleRecipe = () => {
     const [recipe, setRecipe] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [copied, setCopied] = useState(false);
+    // const [copied, setCopied] = useState(false);
 
     const getSingleRecipe = (id) => {
         api
@@ -46,8 +46,9 @@ const SingleRecipe = () => {
 
     const handleClick = () => {
         let url = document.location.href;
-        navigator.clipboard.writeText(url);
-        setCopied(true);
+        // navigator.clipboard.writeText(url);
+        // setCopied(true);
+        navigator.share({ title: `${meal?.strMeal}`, url: url });
     };
 
     return (
@@ -63,7 +64,7 @@ const SingleRecipe = () => {
                         <h2 className="bubble-title">
                             {meal?.strMeal || 'Unknown Recipe'}
                             <button className="save-recipe" onClick={handleClick}>
-                                {!copied ? "Copy to Clipboard!" : "Copied! ✓"}
+                                Share!
                             </button>
                         </h2>
                         <div className="meta-chips">
