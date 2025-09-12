@@ -113,7 +113,9 @@ function App() {
           <Route
             path="/search"
             element={
-              <Search />
+              <main className="mama-main">
+                <Search />
+              </main>
             }
           />
           <Route

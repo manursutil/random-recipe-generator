@@ -36,10 +36,17 @@ const getAreaList = async () => {
   return response.data;
 };
 
+const getRecipeByArea = async (area) => {
+  const request = axios.get(`${categoryBaseUrl}?a=${area}`);
+  const response = await request;
+  return response.data;
+};
+
 export default {
   getRandomRecipe,
   getRecipeById,
   getCategoryList,
   getRecipeByCategory,
   getAreaList,
+  getRecipeByArea,
 };
