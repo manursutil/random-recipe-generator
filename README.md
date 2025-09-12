@@ -35,10 +35,7 @@ Work in progress. Expect frequent changes while features and documentation are b
 - [x] Saved recipes via LocalStorage (MVP persistence)
 - [x] Manage/view saved recipes (search, remove)
 - [x] Share recipes (copy link)
-- [ ] Ingredient pool customization and tweaks
-- [ ] Robust loading, error, and empty states
-- [ ] Basic unit tests for components/utils
+- [x] Robust loading, error, and empty states
 - [ ] PWA support + offline caching
 - [ ] User accounts with database-backed persistence
-- [ ] CI pipeline for lint/test
 - [ ] Screenshots and usage docs
