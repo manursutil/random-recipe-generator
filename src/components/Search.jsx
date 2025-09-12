@@ -1,14 +1,33 @@
 import { useState } from "react";
 import api from "../api/api";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const Search = () => {
     const [recipes, setRecipes] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [filter, setFilter] = useState('');
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const categories = ["Beef", "Breakfast", "Chicken", "Dessert", "Goat", "Lamb", "Miscellaneous", "Pasta", "Pork", "Seafood", "Side", "Starter", "Vegan", "Vegetarian"];
+    // const categories = ["Beef", "Breakfast", "Chicken", "Dessert", "Goat", "Lamb", "Miscellaneous", "Pasta", "Pork", "Seafood", "Side", "Starter", "Vegan", "Vegetarian"];
+
+    const fetchCategories = () => {
+        setLoading(true);
+        setError(null);
+        api.
+            getCategoryList()
+            .then((data) => {
+                const fetchedCategories = data?.meals?.map(meal => meal.strCategory) || [];
+                setCategories(fetchedCategories);
+            })
+            .catch((err) => setError(err?.message || "Failed to fetch categories"))
+            .finally(() => setLoading(false));
+    };
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
 
     const handleFilter = (e) => {
         setFilter(e.target.value);
