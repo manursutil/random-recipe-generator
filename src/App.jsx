@@ -8,6 +8,7 @@ import Header from './components/Header';
 import PotButton from './components/PotButton';
 import SingleRecipe from './components/SingleRecipe';
 import Search from './components/Search';
+import RecipeSearchCard from './components/RecipeSearchCard';
 
 
 function App() {
@@ -121,7 +122,7 @@ function App() {
           <Route
             path="/search/:id"
             element={
-              <SingleRecipe />
+              <RecipeSearchCard handleSubmit={handleSubmit} savedRecipes={savedRecipes} />
             }
           />
         </Routes>
