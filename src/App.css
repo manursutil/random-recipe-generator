@@ -31,9 +31,21 @@ body {
   position: relative;
 }
 /* Global box sizing and prevent horizontal scroll */
-*, *::before, *::after { box-sizing: border-box; }
-html, body { max-width: 100%; overflow-x: hidden; }
-img, svg { max-width: 100%; height: auto; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
 body::before {
   content: "";
   position: fixed;
@@ -297,6 +309,8 @@ body::before {
   border: 2px solid #fff;
   border-radius: 12px;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+  flex-wrap: wrap;
+  width: 100%;
 }
 .search-wrap select {
   appearance: none;
@@ -311,11 +325,11 @@ body::before {
   padding: 0.4rem 2rem 0.4rem 0.75rem;
   cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.2s ease;
-  /* Custom dropdown arrow */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%237a4b65' d='M1.41 0L6 4.59 10.59 0 12 1.41 6 7.41 0 1.41z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.6rem center;
   background-size: 12px 8px;
+  max-width: 100%;
 }
 .search-wrap select:focus {
   outline: none;
@@ -586,15 +600,22 @@ table.ingredients.kawaii tbody tr td:last-child {
     gap: 0.75rem;
   }
   /* Stack and center saved items on mobile */
-  .saved-item { grid-template-columns: 1fr; text-align: center; }
+  .saved-item {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
   .saved-item .saved-info {
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
   }
-  .saved-actions { justify-content: center; }
-  .saved-item .thumb-wrap { margin: 0 auto; }
+  .saved-actions {
+    justify-content: center;
+  }
+  .saved-item .thumb-wrap {
+    margin: 0 auto;
+  }
   .thumb-wrap {
     width: 80px;
     height: 80px;
@@ -603,15 +624,40 @@ table.ingredients.kawaii tbody tr td:last-child {
     font-size: 1.3rem;
   }
   /* Keep everything in one view; avoid inner horizontal scroll */
-  table.ingredients { display: table; width: 100%; overflow-x: visible; }
+  table.ingredients {
+    display: table;
+    width: 100%;
+    overflow-x: visible;
+  }
   table.ingredients th,
-  table.ingredients td { white-space: normal; word-break: break-word; }
+  table.ingredients td {
+    white-space: normal;
+    word-break: break-word;
+  }
 
   /* Constrain recipe card width on mobile */
-  .recipe-card { max-width: min(92vw, 480px); }
+  .recipe-card {
+    max-width: min(92vw, 480px);
+  }
 
   /* Avoid long links causing overflow */
-  .source, .source a { word-break: break-word; overflow-wrap: anywhere; }
+  .source,
+  .source a {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  .search-wrap {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .search-wrap .search-icon {
+    display: none;
+  }
+  .search-wrap select,
+  .search-wrap .copy-btn {
+    width: 100%;
+  }
 }
 
 @media (max-width: 420px) {
@@ -625,7 +671,10 @@ table.ingredients.kawaii tbody tr td:last-child {
   .mama-nav {
     justify-content: center;
   }
-  .mama-logo { width: clamp(50px, 24vw, 64px); max-width: 64px; }
+  .mama-logo {
+    width: clamp(50px, 24vw, 64px);
+    max-width: 64px;
+  }
 
   .card-header,
   .saved-item {
