@@ -8,17 +8,17 @@
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#ffffff",
-  "theme_color": "#ff6b6b",
+  "background_color": "#ff8fb3",
+  "theme_color": "#ffc1d9",
   "icons": [
     {
-      "src": "/cooking_mama.png",
+      "src": "/icon_192_x_192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/cooking_mama.png",
+      "src": "/icon_512_X_512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
