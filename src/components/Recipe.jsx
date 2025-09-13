@@ -22,7 +22,7 @@ const Recipe = ({ meal, meta, handleSubmit, savedRecipes }) => {
                 <div className="title-area">
                     <h2 className="bubble-title">
                         {meal.strMeal}
-                        <button className="save-recipe" onClick={handleSubmit}>
+                        <button className="save-recipe" onClick={() => handleSubmit(meal)}>
                             {isSaved ? "Saved! ✓" : "Save Recipe!"}
                         </button>
                     </h2>

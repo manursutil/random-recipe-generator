@@ -56,12 +56,13 @@ function App() {
     return { estMinutes, difficulty, hats };
   }, [meal]);
 
-  const handleSubmit = () => {
-    if (meal && meal.strMeal && !savedRecipes.includes(meal.strMeal)) {
+  const handleSubmit = (targetMeal) => {
+    const m = targetMeal || meal;
+    if (m && m.strMeal && !savedRecipes.some(r => r.id === m.idMeal)) {
       const newSavedRecipe = {
-        name: meal.strMeal,
-        image: meal.strMealThumb,
-        id: meal.idMeal,
+        name: m.strMeal,
+        image: m.strMealThumb,
+        id: m.idMeal,
       };
 
       const updatedRecipes = [...savedRecipes, newSavedRecipe];
