@@ -9,6 +9,8 @@ import PotButton from './components/PotButton';
 import SingleRecipe from './components/SingleRecipe';
 import Search from './components/Search';
 import RecipeSearchCard from './components/RecipeSearchCard';
+import Login from './components/Login';
+import Signup from './components/Signup';
 
 
 function App() {
@@ -126,6 +128,8 @@ function App() {
               <RecipeSearchCard handleSubmit={handleSubmit} savedRecipes={savedRecipes} />
             }
           />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </Router>
     </div>

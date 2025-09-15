@@ -1,51 +1,81 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:3000/recipes";
+const api = axios.create({
+  baseURL: "",
+  withCredentials: true,
+});
 
-const categoryList = "https://www.themealdb.com/api/json/v1/1/list.php?c=list";
-const areaList = "https://www.themealdb.com/api/json/v1/1/list.php?a=list";
-
-const getRandomRecipe = async () => {
-  const request = axios.get(`${baseUrl}/random`);
-  const response = await request;
-  return response.data;
+// Recipes
+export const getRandomRecipe = async () => {
+  const { data } = await api.get("/recipes/random");
+  return data;
 };
 
-const getRecipeById = async (id) => {
-  const request = axios.get(`${baseUrl}/${id}`);
-  const response = await request;
-  return response.data;
+export const getRecipeById = async (id) => {
+  const { data } = await api.get(`/recipes/${id}`);
+  return data;
 };
 
-const getCategoryList = async () => {
-  const request = axios.get(categoryList);
-  const response = await request;
-  return response.data;
+export const getRecipeByCategory = async (category) => {
+  const { data } = await api.get(`/recipes/category/${category}`);
+  return data;
 };
 
-const getRecipeByCategory = async (category) => {
-  const request = axios.get(`${baseUrl}/category/${category}`);
-  const response = await request;
-  return response.data;
+export const getRecipeByArea = async (area) => {
+  const { data } = await api.get(`/recipes/area/${area}`);
+  return data;
 };
 
-const getAreaList = async () => {
-  const request = axios.get(areaList);
-  const response = await request;
-  return response.data;
+// Third-party endpoints for performance in frontend components
+export const getCategoryList = async () => {
+  const { data } = await axios.get(
+    "https://www.themealdb.com/api/json/v1/1/list.php?c=list"
+  );
+  return data;
 };
 
-const getRecipeByArea = async (area) => {
-  const request = axios.get(`${baseUrl}/area/${area}`);
-  const response = await request;
-  return response.data;
+export const getAreaList = async () => {
+  const { data } = await axios.get(
+    "https://www.themealdb.com/api/json/v1/1/list.php?a=list"
+  );
+  return data;
 };
 
-export default {
+// Auth
+export const signup = async (email, password) => {
+  const { data } = await api.post("/auth/signup", { email, password });
+  return data;
+};
+
+export const login = async (email, password) => {
+  const { data } = await api.post("/auth/login", { email, password });
+  return data;
+};
+
+export const logout = async () => {
+  const { data } = await api.post("/auth/logout");
+  return data;
+};
+
+export const me = async () => {
+  const { data } = await api.get("/auth/me");
+  return data;
+};
+
+const apiClient = {
+  // Recipes
   getRandomRecipe,
   getRecipeById,
-  getCategoryList,
   getRecipeByCategory,
-  getAreaList,
   getRecipeByArea,
+  // Third-party lists
+  getCategoryList,
+  getAreaList,
+  // Auth
+  signup,
+  login,
+  logout,
+  me,
 };
+
+export default apiClient;

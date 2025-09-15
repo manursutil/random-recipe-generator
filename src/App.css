@@ -567,6 +567,40 @@ table.ingredients.kawaii tbody tr td:last-child {
   color: #7b6c86;
 }
 
+/* Auth forms */
+.auth-card {
+  max-width: 480px;
+  margin: 0 auto;
+}
+.auth-form {
+  display: grid;
+  gap: 0.8rem;
+}
+.auth-form .form-row {
+  display: grid;
+  gap: 0.4rem;
+}
+.auth-form input[type="email"],
+.auth-form input[type="password"] {
+  background: linear-gradient(180deg, #fff, #fdf7ff);
+  border: 2px solid #fff;
+  border-radius: 12px;
+  padding: 0.65rem 0.8rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+  color: #3a3451;
+}
+.auth-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  justify-content: space-between;
+}
+/* Reuse existing pill button and just recolor */
+.auth-actions .copy-btn {
+  background: linear-gradient(180deg, #fff, var(--green));
+  color: #1e4d1c;
+}
+
 /* Animations */
 /* Responsive */
 @media (max-width: 840px) {
