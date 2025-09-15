@@ -26,6 +26,11 @@ Images live in `images/` so they render correctly on GitHub and in docs.
 - TheMealDB API (no key required)
 - ESLint for linting
 
+## Backend
+
+The backend for this project lives here:
+https://github.com/manursutil/random-recipe-generator-backend
+
 ## Quick Start
 
 - Requirements: Node.js 18+
@@ -65,4 +70,4 @@ Images live in `images/` so they render correctly on GitHub and in docs.
 - [x] PWA support + offline caching
 - [x] Screenshots and usage docs
 - [ ] User accounts with server persistence
-- [ ] Advanced filters and tags
+- [x] Advanced filters and tags
