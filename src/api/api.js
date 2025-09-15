@@ -1,19 +1,18 @@
 import axios from "axios";
 
-const randomUrl = "https://www.themealdb.com/api/json/v1/1/random.php";
-const baseUrl = "https://www.themealdb.com/api/json/v1/1/lookup.php";
-const categoryBaseUrl = "https://www.themealdb.com/api/json/v1/1/filter.php";
+const baseUrl = "http://localhost:3000/recipes";
+
 const categoryList = "https://www.themealdb.com/api/json/v1/1/list.php?c=list";
 const areaList = "https://www.themealdb.com/api/json/v1/1/list.php?a=list";
 
 const getRandomRecipe = async () => {
-  const request = axios.get(randomUrl);
+  const request = axios.get(`${baseUrl}/random`);
   const response = await request;
   return response.data;
 };
 
 const getRecipeById = async (id) => {
-  const request = axios.get(`${baseUrl}?i=${id}`);
+  const request = axios.get(`${baseUrl}/${id}`);
   const response = await request;
   return response.data;
 };
@@ -25,7 +24,7 @@ const getCategoryList = async () => {
 };
 
 const getRecipeByCategory = async (category) => {
-  const request = axios.get(`${categoryBaseUrl}?c=${category}`);
+  const request = axios.get(`${baseUrl}/category/${category}`);
   const response = await request;
   return response.data;
 };
@@ -37,7 +36,7 @@ const getAreaList = async () => {
 };
 
 const getRecipeByArea = async (area) => {
-  const request = axios.get(`${categoryBaseUrl}?a=${area}`);
+  const request = axios.get(`${baseUrl}/area/${area}`);
   const response = await request;
   return response.data;
 };
