@@ -62,6 +62,22 @@ export const me = async () => {
   return data;
 };
 
+// Saved Recipes (DB-backed)
+export const addSavedRecipe = async (recipeId) => {
+  const { data } = await api.post("/auth/saved-recipes", { recipeId });
+  return data;
+};
+
+export const listSavedRecipes = async () => {
+  const { data } = await api.get("/auth/saved-recipes");
+  return data;
+};
+
+export const deleteSavedRecipe = async (id) => {
+  const { data } = await api.delete(`/auth/saved-recipes/${id}`);
+  return data;
+};
+
 const apiClient = {
   // Recipes
   getRandomRecipe,
@@ -76,6 +92,10 @@ const apiClient = {
   login,
   logout,
   me,
+  // Saved Recipes
+  addSavedRecipe,
+  listSavedRecipes,
+  deleteSavedRecipe,
 };
 
 export default apiClient;

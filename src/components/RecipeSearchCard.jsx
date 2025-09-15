@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../api/api';
 
-const RecipeSearchCard = ({ handleSubmit, savedRecipes }) => {
+const RecipeSearchCard = ({ handleSubmit, savedRecipes, canSave = true }) => {
     const { id } = useParams();
     const [recipe, setRecipe] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -44,7 +44,7 @@ const RecipeSearchCard = ({ handleSubmit, savedRecipes }) => {
         return { name, amount: amount || '' };
     }).filter(Boolean);
 
-    const isSaved = savedRecipes.some(recipe => recipe.id === meal.idMeal);
+    const isSaved = savedRecipes.some(recipe => String(recipe.id) === String(meal.idMeal));
 
     return (
         <div className="single-padding-top">
@@ -58,8 +58,13 @@ const RecipeSearchCard = ({ handleSubmit, savedRecipes }) => {
                 <div className="title-area">
                     <h2 className="bubble-title">
                         {meal.strMeal}
-                        <button className="save-recipe" onClick={() => handleSubmit(meal)}>
-                            {isSaved ? "Saved! ✓" : "Save Recipe!"}
+                        <button
+                            className="save-recipe"
+                            onClick={() => canSave && handleSubmit(meal)}
+                            disabled={!canSave}
+                            title={!canSave ? "Login to save recipes" : undefined}
+                        >
+                            {!canSave ? "Login to save" : (isSaved ? "Saved! ✓" : "Save Recipe!")}
                         </button>
                     </h2>
                     <div className="meta-chips">

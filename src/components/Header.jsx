@@ -76,14 +76,16 @@ const Header = () => {
                 <NavLink className="nav-pill" to="/" aria-label="Home">🏠 Home</NavLink>
                 <NavLink className="nav-pill" to="/my-recipes" aria-label="Recipes">🍲 Saved recipes</NavLink>
                 <NavLink className="nav-pill" to="/search" aria-label="Search">🔍 Search</NavLink>
-                {!checking && (user ? (
-                    <button className="nav-pill" onClick={handleLogout} aria-label="Logout">🚪 Logout</button>
-                ) : (
-                    <>
-                        <NavLink className="nav-pill" to="/login" aria-label="Login">🔐 Login</NavLink>
-                        <NavLink className="nav-pill" to="/signup" aria-label="Signup">📝 Sign up</NavLink>
-                    </>
-                ))}
+                <div className="nav-auth">
+                    {!checking && (user ? (
+                        <button className="nav-pill" onClick={handleLogout} aria-label="Logout">🚪 Logout</button>
+                    ) : (
+                        <>
+                            <NavLink className="nav-pill" to="/login" aria-label="Login">🔐 Login</NavLink>
+                            <NavLink className="nav-pill" to="/signup" aria-label="Signup">📝 Sign up</NavLink>
+                        </>
+                    ))}
+                </div>
             </nav>
 
         </header>

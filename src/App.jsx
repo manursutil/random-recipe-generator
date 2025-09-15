@@ -12,15 +12,14 @@ import RecipeSearchCard from './components/RecipeSearchCard';
 import Login from './components/Login';
 import Signup from './components/Signup';
 
-
 function App() {
   const [recipe, setRecipe] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [savedRecipes, setSavedRecipes] = useState(() => {
-    const saved = localStorage.getItem("recipes");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [savedRecipes, setSavedRecipes] = useState([]);
+  const [, setSaving] = useState(false);
+  const [user, setUser] = useState(null);
+  const [authChecking, setAuthChecking] = useState(true);
 
   const fetchRecipe = () => {
     setLoading(true);
@@ -34,6 +33,111 @@ function App() {
 
   useEffect(() => {
     fetchRecipe();
+  }, []);
+
+  // Auth state
+  const refreshAuth = async (opts = {}) => {
+    try {
+      const data = await api.me();
+      setUser(data?.user ?? data ?? true);
+    } catch (e) {
+      console.error(e);
+      if (!opts.soft) {
+        setUser(null);
+      }
+    } finally {
+      setAuthChecking(false);
+    }
+  };
+
+  useEffect(() => {
+    let mounted = true;
+    const load = (opts) => mounted && refreshAuth(opts);
+    load();
+    const onAuthChanged = (e) => {
+      if (!mounted) return;
+      const loggedOut = !!e?.detail?.loggedOut;
+      const nextUser = e?.detail?.user;
+      if (loggedOut) {
+        setUser(null);
+        setSavedRecipes([]);
+        setAuthChecking(false);
+        return;
+      }
+      if (nextUser !== undefined) {
+        setUser(nextUser);
+        setAuthChecking(false);
+      } else {
+        load({ soft: true });
+      }
+    };
+    window.addEventListener('auth:changed', onAuthChanged);
+    return () => {
+      mounted = false;
+      window.removeEventListener('auth:changed', onAuthChanged);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!authChecking && !user) {
+      setSavedRecipes([]);
+    }
+  }, [authChecking, user]);
+
+  const refreshSavedRecipes = async (opts = {}) => {
+    const { merge = false } = opts;
+    try {
+      const res = await api.listSavedRecipes();
+      const ids = Array.isArray(res?.recipes) ? res.recipes : [];
+      if (!ids.length && !merge) {
+        setSavedRecipes([]);
+        return;
+      }
+      const details = await Promise.all(
+        ids.map(async (id) => {
+          try {
+            const data = await api.getRecipeById(id);
+            const m = data?.meals?.[0];
+            if (!m) return null;
+            return {
+              id: m.idMeal,
+              name: m.strMeal,
+              image: m.strMealThumb,
+            };
+          } catch {
+            return null;
+          }
+        })
+      );
+      const fetched = details
+        .filter(Boolean)
+        .sort((a, b) => String(a.name).localeCompare(String(b.name)));
+      if (!merge) {
+        setSavedRecipes(fetched);
+      } else {
+        setSavedRecipes((prev) => {
+          const map = new Map();
+          for (const r of prev) map.set(String(r.id), r);
+          for (const r of fetched) map.set(String(r.id), r);
+          return Array.from(map.values()).sort((a, b) => String(a.name).localeCompare(String(b.name)));
+        });
+      }
+    } catch (e) {
+      console.error(e);
+      setSavedRecipes([]);
+    }
+  };
+
+  useEffect(() => {
+    let mounted = true;
+    const load = () => mounted && refreshSavedRecipes();
+    load();
+    const onAuthChanged = () => load();
+    window.addEventListener('auth:changed', onAuthChanged);
+    return () => {
+      mounted = false;
+      window.removeEventListener('auth:changed', onAuthChanged);
+    };
   }, []);
 
   const meal = recipe?.meals?.[0] || null;
@@ -58,25 +162,34 @@ function App() {
     return { estMinutes, difficulty, hats };
   }, [meal]);
 
-  const handleSubmit = (targetMeal) => {
+  const handleSubmit = async (targetMeal) => {
     const m = targetMeal || meal;
-    if (m && m.strMeal && !savedRecipes.some(r => r.id === m.idMeal)) {
-      const newSavedRecipe = {
-        name: m.strMeal,
-        image: m.strMealThumb,
-        id: m.idMeal,
-      };
-
-      const updatedRecipes = [...savedRecipes, newSavedRecipe];
-      setSavedRecipes(updatedRecipes);
-      localStorage.setItem("recipes", JSON.stringify(updatedRecipes));
+    if (!m || !m.idMeal) return;
+    if (!user) return;
+    if (savedRecipes.some(r => String(r.id) === String(m.idMeal))) return;
+    setSaving(true);
+    try {
+      await api.addSavedRecipe(Number(m.idMeal));
+      setSavedRecipes((prev) => [
+        ...prev,
+        { id: m.idMeal, name: m.strMeal, image: m.strMealThumb },
+      ]);
+      refreshSavedRecipes({ merge: true });
+    } catch (e) {
+      console.error(e?.response?.data?.error || e?.message);
+    } finally {
+      setSaving(false);
     }
   };
 
-  const removeRecipe = (Id) => {
-    const updatedRecipes = savedRecipes.filter(recipe => recipe.id !== Id);
-    setSavedRecipes(updatedRecipes);
-    localStorage.setItem("recipes", JSON.stringify(updatedRecipes));
+  const removeRecipe = async (Id) => {
+    if (!user) return;
+    try {
+      await api.deleteSavedRecipe(Number(Id));
+      setSavedRecipes((prev) => prev.filter((r) => String(r.id) !== String(Id)));
+    } catch (e) {
+      console.error(e?.response?.data?.error || e?.message);
+    }
   };
 
   return (
@@ -92,7 +205,7 @@ function App() {
                 {error && <div className="error-bubble">{error}</div>}
                 {meal ? (
                   <div className="recipe-area">
-                    <Recipe key={meal.idMeal} meal={meal} meta={meta} handleSubmit={handleSubmit} savedRecipes={savedRecipes} />
+                    <Recipe key={meal.idMeal} meal={meal} meta={meta} handleSubmit={handleSubmit} savedRecipes={savedRecipes} canSave={!!user && !authChecking} />
                   </div>
                 ) : (
                   !error && <div className="empty">No meal found.</div>
@@ -125,7 +238,7 @@ function App() {
           <Route
             path="/search/:id"
             element={
-              <RecipeSearchCard handleSubmit={handleSubmit} savedRecipes={savedRecipes} />
+              <RecipeSearchCard handleSubmit={handleSubmit} savedRecipes={savedRecipes} canSave={!!user && !authChecking} />
             }
           />
           <Route path="/login" element={<Login />} />

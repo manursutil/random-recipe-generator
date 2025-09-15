@@ -103,6 +103,12 @@ body::before {
   gap: 0.6rem;
   margin-top: 0.75rem;
 }
+.mama-nav .nav-auth {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
 .nav-pill {
   background: linear-gradient(180deg, #fff, var(--blue));
   border: 2px solid #fff;
@@ -111,6 +117,12 @@ body::before {
   border-radius: 999px;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.07);
   transition: transform 0.15s ease, box-shadow 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  font: inherit;
 }
 .nav-pill:hover {
   transform: translateY(-2px) scale(1.02);
